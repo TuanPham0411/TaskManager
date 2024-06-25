@@ -1,42 +1,105 @@
-﻿@model TaskManager.Models.User
+﻿@model TaskManager.Models.RegisterViewModel
 
 @{
     ViewBag.Title = "Register";
 }
 
-<h2>Register</h2>
-
-@using (Html.BeginForm())
+@if (Model != null)
 {
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <h4>User</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Register" class="btn btn-default" />
+    <style>
+        body {
+            background: url('/Assets/TeamworkBG.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .centered-form {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            padding: 30px;
+            background-color: #555;
+            border: 5px solid #ddd;
+            border-radius: 5px;
+            color: white;
+        }
+
+            .centered-form h2 {
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+        .btn-right {
+            text-align: right;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-horizontal .control-label {
+            text-align: left; /* Thay đổi từ center sang left */
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        /* Loại bỏ padding-left và padding-right */
+        .form-horizontal .col-md-12 {
+            padding: 0;
+        }
+
+        .btn-default {
+            background-color: #000;
+            color: white;
+            border: 1px solid #000;
+        }
+
+            .btn-default:hover {
+                background-color: #333;
+                border-color: #333;
+            }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-1 centered-form">
+                <h2>REGISTER</h2>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group btn-right">
+                            <div class="col-md-12">
+                                <input type="submit" value="GO!" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
 
 namespace TaskManager.Models
 {
-    public class LoginViewModel
+    public class RegisterViewModel
     {
         [Required]
         [Display(Name = "Username")]
@@ -12,6 +12,10 @@ namespace TaskManager.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-        public bool RememberMe { get; internal set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "ConfirmPassword")]
+        public string ConfirmPassword { get; set; }
     }
 }

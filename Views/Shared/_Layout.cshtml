@@ -6,9 +6,10 @@
     <title>@ViewBag.Title - Task Manager</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-image: url('~/Assets/TeamworkBG.jpg');
             background-size: cover;
             background-repeat: no-repeat;
@@ -17,19 +18,49 @@
             flex-direction: column;
             min-height: 100vh;
             margin: 0;
+            padding: 0;
         }
 
         .navbar {
-            margin-bottom: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            width: 100%;
         }
 
-        .container.body-content {
-            flex: 1;
-            padding: 20px;
-            background-color: transparent;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            .navbar .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                padding: 0 20px;
+            }
+
+        .navbar-brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffffff !important;
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
         }
+
+        .navbar-nav {
+            display: flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: #ffffff !important;
+            font-size: 1.1em;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            .nav-link:hover {
+                color: #ff6347 !important;
+            }
 
         footer {
             text-align: right;
@@ -39,34 +70,68 @@
             bottom: 0;
             right: 0;
             width: auto;
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            padding: 0;
+        }
+
+        .body-content {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            @Html.ActionLink("Task Manager", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="navbar-left">
+                @Html.ActionLink("Task Manager", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
-                    </li>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <span class="navbar-text">
+                            Hello, @User.Identity.Name!
+                        </span>
+                        <li class="nav-item">
+                            @Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Register", "Register", "Account", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="body-content">
         @RenderBody()
-        <hr />
     </div>
     <footer>
         <p>&copy; @DateTime.Now.Year - Task Manager Tool</p>
